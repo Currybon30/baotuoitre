@@ -1,4 +1,4 @@
-import mongoCredentials from "./credentials"
+import mongoCredentials from "./credentials.js"
 const config = {
     env: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 3000,
