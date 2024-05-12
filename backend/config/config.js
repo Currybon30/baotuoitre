@@ -1,9 +1,9 @@
-// import mongoCredentials from "../../credentials.js"
+import mongoCredentials from "../../credentials.js"
 const config = {
     env: 'development',
     port: 3000,
     jwtSecret: "YOUR_secret_key",
-    mongoUri: 'mongodb://localhost:27017/QC'
+    mongoUri: mongoCredentials || process.env.MONGODB_URI
   }
   
 export default config
