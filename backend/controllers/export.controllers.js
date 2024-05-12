@@ -72,10 +72,15 @@ const exportToExcelByPage = async (req, res) => {
                 $group: {
                     _id: { $dayOfMonth: "$publishDates" },
                     date: { $first: "$publishDates" },
-                    sumOfSize: { $sum: "$size" }
+                    sumOfSize: { $sum: "$size" },
+                    sumOfTotal: {$sum: "$pricePerUnit"}
                 }
+            },
+            {
+                $sort: { _id: 1 }
             }
-        ]);        
+        ]);  
+        return res.json(presses);      
     }
     catch (err) {
         return res.status(400).json({
@@ -84,4 +89,4 @@ const exportToExcelByPage = async (req, res) => {
     }
 }
 
-export default { exportToExcelByMonth };
+export default { exportToExcelByMonth, exportToExcelByPage };
