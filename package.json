@@ -5,7 +5,7 @@
   "description": "simple-project",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently 'vite' \"npm run server\" \"npm run client\"",
     "server": "node server.js",
     "client": "cd client && npm start"
   },
