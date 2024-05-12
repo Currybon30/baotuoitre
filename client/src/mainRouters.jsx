@@ -6,6 +6,7 @@ import Home from './home/home';
 import QuanLy from './manage/quanly';
 import BieuMauOne from './manage/bieumauone';
 import ExportByMonth from './exports/exportByMonth';
+import ExportByPage from './exports/exportByPage';
 
 export default function MainRouters() {
     return (
@@ -17,7 +18,7 @@ export default function MainRouters() {
                 <Route path="/quanlybieumau" Component={QuanLy}  />
                 <Route path="/quanlybieumau/:id" Component={BieuMauOne} />
                 <Route path="/thongketheothang"  Component={ExportByMonth}/>
-                <Route path="/thongketheotrang"  />
+                <Route path="/thongketheotrang"  Component={ExportByPage}/>
             </Routes>
             <Footer />  
         </div>

@@ -66,7 +66,6 @@ const ExportByMonth = () => {
     const handleExport = async () => {
         try {
             const data = await exportByMonth(month);
-            console.log('data:', data);
             handleData(data);
         } catch (error) {
             console.error('Error exporting data:', error);
