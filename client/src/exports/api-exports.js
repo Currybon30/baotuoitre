@@ -1,6 +1,6 @@
 const exportByMonth = async (month) => {
     try {
-        const response = await fetch('http://localhost:3000/api/export/exportByMonth/' + month, {
+        const response = await fetch('/api/export/exportByMonth/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ const exportByMonth = async (month) => {
 
 const exportByPage = async (month) => {
     try {
-        const response = await fetch('http://localhost:3000/api/export/exportByPage/' + month, {
+        const response = await fetch('/api/export/exportByPage/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

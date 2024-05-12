@@ -1,6 +1,6 @@
 const listAll = async () => {
     try {
-        let response = await fetch('http://localhost:3000/api/qc/presses', {
+        let response = await fetch('/api/qc/presses', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -16,7 +16,7 @@ const listAll = async () => {
 
 const listByName = async (params) => {
     try {
-        let response = await fetch('http://localhost:3000/api/qc/presses/customer/' + params, {
+        let response = await fetch('/api/qc/presses/customer/' + params, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -32,7 +32,7 @@ const listByName = async (params) => {
 
 const listById = async (params) => {
     try {
-        let response = await fetch('http://localhost:3000/api/qc/presses/' + params, {
+        let response = await fetch('/api/qc/presses/' + params, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -48,7 +48,7 @@ const listById = async (params) => {
 
 const removeById = async (params) => {
     try {
-        let response = await fetch('http://localhost:3000/api/qc/presses/' + params, {
+        let response = await fetch('/api/qc/presses/' + params, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -64,7 +64,7 @@ const removeById = async (params) => {
 
 const updateById = async (params, data) => {
     try {
-        let response = await fetch('http://localhost:3000/api/qc/presses/' + params, {
+        let response = await fetch('/api/qc/presses/' + params, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
