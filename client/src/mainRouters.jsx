@@ -13,12 +13,12 @@ export default function MainRouters() {
         <div>
             <Menu />
             <Routes>
-                <Route exact path="/"  Component={Home}/>
-                <Route path="/taobieumau" Component={BieuMau} />
-                <Route path="/quanlybieumau" Component={QuanLy}  />
-                <Route path="/quanlybieumau/:id" Component={BieuMauOne} />
-                <Route path="/thongketheothang"  Component={ExportByMonth}/>
-                <Route path="/thongketheotrang"  Component={ExportByPage}/>
+                <Route exact path="/baotuoitre"  Component={Home}/>
+                <Route path="/baotuoitre/taobieumau" Component={BieuMau} />
+                <Route path="/baotuoitre/quanlybieumau" Component={QuanLy}  />
+                <Route path="/baotuoitre/quanlybieumau/:id" Component={BieuMauOne} />
+                <Route path="/baotuoitre/thongketheothang"  Component={ExportByMonth}/>
+                <Route path="/baotuoitre/thongketheotrang"  Component={ExportByPage}/>
             </Routes>
             <Footer />  
         </div>

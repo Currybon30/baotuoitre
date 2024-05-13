@@ -83,7 +83,7 @@ export default function QuanLy() {
         return (
             <div className={classes.root}>
                 <p>Không có dữ liệu</p>
-                <Link to="/taobieumau">Tạo mới</Link>
+                <Link to="/baotuoitre/taobieumau">Tạo mới</Link>
             </div>
         )
     }

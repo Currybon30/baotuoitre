@@ -21,22 +21,22 @@ const Menu = () => {
         <AppBar position="static">
             <Toolbar>
                 <div>
-                    <Link to="/">
-                        <Button style={isActive(location, "/")}>
+                    <Link to="/baotuoitre">
+                        <Button style={isActive(location, "/baotuoitre")}>
                             <Home />
                         </Button>
                     </Link>
-                    <Link to="/taobieumau">
-                        <Button style={isPartActive(location, "/taobieumau")} >Tạo biểu mẫu</Button>
+                    <Link to="/baotuoitre/taobieumau">
+                        <Button style={isPartActive(location, "/baotuoitre/taobieumau")} >Tạo biểu mẫu</Button>
                     </Link>
-                    <Link to="/quanlybieumau">
-                        <Button style={isPartActive(location, "/quanlybieumau")}>Quản lý biểu mẫu</Button>
+                    <Link to="/baotuoitre/quanlybieumau">
+                        <Button style={isPartActive(location, "/baotuoitre/quanlybieumau")}>Quản lý biểu mẫu</Button>
                     </Link>
-                    <Link to="/thongketheothang">
-                        <Button style={isPartActive(location, "/thongketheothang")}>Thống kê theo tháng</Button>
+                    <Link to="/baotuoitre/thongketheothang">
+                        <Button style={isPartActive(location, "/baotuoitre/thongketheothang")}>Thống kê theo tháng</Button>
                     </Link>
-                    <Link to="/thongketheotrang">
-                        <Button style={isPartActive(location, "/thongketheotrang")}>Thống kê theo trang</Button>
+                    <Link to="/baotuoitre/thongketheotrang">
+                        <Button style={isPartActive(location, "/baotuoitre/thongketheotrang")}>Thống kê theo trang</Button>
                     </Link>
                 </div>
             </Toolbar>
