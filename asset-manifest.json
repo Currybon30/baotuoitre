@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/baotuoitre/static/css/main.31d6cfe0.css",
+    "main.js": "/baotuoitre/static/js/main.6ad62d9f.js",
+    "static/media/Tuổi_Trẻ_Logo.svg.png": "/baotuoitre/static/media/Tuổi_Trẻ_Logo.svg.5f90bcbfd68697221882.png",
+    "index.html": "/baotuoitre/index.html",
+    "main.6ad62d9f.js.map": "/baotuoitre/static/js/main.6ad62d9f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.6ad62d9f.js"
+  ]
+}
