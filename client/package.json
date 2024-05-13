@@ -1,8 +1,8 @@
 {
-  "homepage": "https://currybon30.github.io/baotuoitre",
+  "homepage": "http://currybon30.github.io/baotuoitre",
   "name": "client",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "start": "react-scripts start",
@@ -50,6 +50,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://thuytrang-tuoitre-server.onrender.com"
+  }
 }
