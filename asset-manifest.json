@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/baotuoitre/static/css/main.31d6cfe0.css",
-    "main.js": "/baotuoitre/static/js/main.92180cf7.js",
+    "main.js": "/baotuoitre/static/js/main.95299d51.js",
     "static/media/Tuổi_Trẻ_Logo.svg.png": "/baotuoitre/static/media/Tuổi_Trẻ_Logo.svg.5f90bcbfd68697221882.png",
     "index.html": "/baotuoitre/index.html",
-    "main.92180cf7.js.map": "/baotuoitre/static/js/main.92180cf7.js.map"
+    "main.95299d51.js.map": "/baotuoitre/static/js/main.95299d51.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.92180cf7.js"
+    "static/js/main.95299d51.js"
   ]
 }
