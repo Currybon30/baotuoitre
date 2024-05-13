@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: `http://localhost:${PORT}`,
+        target: `https://thuytrang-tuoitre.onrender.com/:${PORT}`,
         changeOrigin: true,
       },
     },
