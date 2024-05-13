@@ -5,9 +5,10 @@
   "description": "simple-project",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently 'vite' \"npm run server\" \"npm run client\"",
-    "server": "node server.js",
-    "client": "cd client && npm start"
+    "start": "concurrently 'vite' \"npm run server\"",
+    "server": "nodemon server.js",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "author": "",
   "license": "ISC",
