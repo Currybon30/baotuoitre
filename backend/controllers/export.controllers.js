@@ -42,6 +42,9 @@ const exportToExcelByMonth = async (req, res) => {
                     quantity: { $sum: 1 }, // Calculate quantity by counting publishDates
                     totalPrice: { $sum: { $multiply: ['$pricePerUnit', 1] } } // Calculate total price
                 }
+            },
+            {
+                $sort: { orderId: 1 }
             }
         ]);        
         return res.json(presses);
