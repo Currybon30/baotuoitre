@@ -15,7 +15,7 @@ const create = async (req, res) => {
 
 const listAll = async (req, res) => {
     try {
-        let presses = await Press.find();
+        let presses = await Press.find().sort({orderId: 1})
         return res.json(presses);
     } catch (err) {
         return res.status(400).json({
