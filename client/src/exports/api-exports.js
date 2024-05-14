@@ -28,7 +28,7 @@ const exportByPage = async (month) => {
     }
 }
 
-const exportByDay = async (day, month) => {
+const exportByDay = async (month, day) => {
     try {
         const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByDay/' + month + '/' + day, {
             method: 'GET',
