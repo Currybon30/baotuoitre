@@ -28,5 +28,22 @@ const exportByPage = async (month) => {
     }
 }
 
+const exportByDay = async (day, month) => {
+    try {
+        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByDay/' + month + '/' + day, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await response.json();
+    }
+    catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        // Handle error as needed
+    }
+}
 
-export { exportByMonth, exportByPage };
+
+
+export { exportByMonth, exportByPage, exportByDay };
