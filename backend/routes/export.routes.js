@@ -9,4 +9,7 @@ router.route('/api/export/exportByMonth/:month')
 router.route('/api/export/exportByPage/:month')
     .get(exportCtrl.exportToExcelByPage);
 
+router.route('/api/export/exportByDay/:month/:day')
+    .get(exportCtrl.exportToExcelByDay);
+
 export default router;

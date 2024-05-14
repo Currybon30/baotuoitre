@@ -92,4 +92,41 @@ const exportToExcelByPage = async (req, res) => {
     }
 }
 
-export default { exportToExcelByMonth, exportToExcelByPage };
+const exportToExcelByDay = async (req, res) => {
+    try {
+        const day = parseInt(req.params.day);
+        const month = parseInt(req.params.month);
+        const presses = await Press.aggregate([
+            {
+                $unwind: '$publishDates'
+            },
+            {
+                $match: {
+                    productType: 'MT',
+                    $expr: {
+                        $and: [
+                            { $eq: [{ $dayOfMonth: "$publishDates" }, day] },
+                            { $eq: [{ $month: "$publishDates" }, month] }
+                        ]
+                    }
+                }
+            },
+            {
+                $project: {
+                    orderId: 1,
+                    customerName: 1,
+                    size: 1,
+                    pricePerUnit: 1
+                }
+            }
+        ]);
+        return res.json(presses);
+    }
+    catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
+        });
+    }
+}
+
+export default { exportToExcelByMonth, exportToExcelByPage, exportToExcelByDay };
