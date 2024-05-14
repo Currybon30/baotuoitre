@@ -20,6 +20,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', qcRoutes);
 app.use('/', exportRoutes);
+app.get('/', (req, res) => {
+    res.send('Server đang chạy');
+});
 
 app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
