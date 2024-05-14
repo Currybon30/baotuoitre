@@ -32,6 +32,9 @@ const Menu = () => {
                     <Link to="/quanlybieumau">
                         <Button style={isPartActive(location, "/quanlybieumau")}>Quản lý biểu mẫu</Button>
                     </Link>
+                    <Link to="/thongketheongay">
+                        <Button style={isPartActive(location, "/thongketheongay")}>Thống kê theo ngày</Button>
+                    </Link>
                     <Link to="/thongketheothang">
                         <Button style={isPartActive(location, "/thongketheothang")}>Thống kê theo tháng</Button>
                     </Link>
