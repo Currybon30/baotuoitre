@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { listById } from "./api-quanly";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Fraction from 'fraction.js';
 import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
 import { removeById } from './api-quanly';
@@ -9,7 +9,6 @@ export default function BieuMauOne() {
     const [values, setValues] = useState([]);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false); // State to control dialog visibility
     const { id } = useParams();
-    const navigate = useNavigate();
 
     const formattedDates = values.publishDates?.map((date, index, array) => {
         const [year, month, day] = date.split('T')[0].split('-');
@@ -37,8 +36,7 @@ export default function BieuMauOne() {
                 console.log(data.error);
             } else {
                 console.log(data);
-                navigate('/quanlybieumau');
-
+                window.location.replace('/quanlybieumau');
             }
         }).catch(error => {
             console.error("Error deleting data:", error);

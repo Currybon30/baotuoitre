@@ -1,6 +1,6 @@
 export const create = async (bieumau) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses', {
+        let response = await fetch('/api/qc/presses', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
