@@ -21,7 +21,26 @@ const exportToExcelByMonth = async (req, res) => {
                     publishDates: 1,
                     quantity: 1,
                     pricePerUnit: 1,
-                    total: 1
+                    total: 1,
+                    orderParts: {
+                        $split: ["$orderId", "/"]
+                    }
+                }
+            },
+            {
+                $addFields: {
+                    orderNumber: { $toInt: { $arrayElemAt: ["$orderParts", 0] } }
+                }
+            },
+            {
+                $addFields: {
+                    mmyy: { $arrayElemAt: ["$orderParts", 1] }
+                }
+            },
+            {
+                $addFields: {
+                    mm: { $substrCP: ["$mmyy", 0, 2] },
+                    yy: { $substrCP: ["$mmyy", 2, 2] }
                 }
             },
             {
@@ -40,11 +59,18 @@ const exportToExcelByMonth = async (req, res) => {
                     size: { $first: '$size' },
                     publishDates: { $push: '$publishDates' },
                     quantity: { $sum: 1 }, // Calculate quantity by counting publishDates
-                    totalPrice: { $sum: { $multiply: ['$pricePerUnit', 1] } } // Calculate total price
+                    totalPrice: { $sum: { $multiply: ['$pricePerUnit', 1] } }, // Calculate total price
+                    yy: { $first: '$yy' },
+                    mm: { $first: '$mm' },
+                    orderNumber: { $first: '$orderNumber' }
                 }
             },
             {
-                $sort: { orderId: 1 }
+                $sort: { 
+                    yy: 1,
+                    mm: 1,
+                    orderNumber: 1
+                }
             }
         ]);        
         return res.json(presses);
