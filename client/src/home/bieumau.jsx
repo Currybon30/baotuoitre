@@ -107,8 +107,8 @@ export default function MyForm() {
             size: eval(size).toFixed(5) || undefined,
             publishDates: formattedDates || undefined,
             quantity: quantity || undefined,
-            pricePerUnit: parseFloat(pricePerUnit) || undefined,
-            total: total || undefined,
+            pricePerUnit: pricePerUnit !== undefined && pricePerUnit !== null ? parseFloat(pricePerUnit) : 0,
+            total: total !== undefined && total !== null ? parseFloat(total) : 0,
         }
         create(bieumau).then(()=>{
             try {
