@@ -3,6 +3,7 @@ import Press from '../models/qc.model.js';
 const exportToExcelByMonth = async (req, res) => {
     try {
         // get the month from the request
+        const year = parseInt(req.params.year);
         const month = parseInt(req.params.month);
         // get all presses
         const presses = await Press.aggregate([
@@ -18,6 +19,7 @@ const exportToExcelByMonth = async (req, res) => {
                     productType: 1,
                     size: 1,
                     publishMonth: { $toInt: { $dateToString: { format: "%m", date: "$publishDates" } } },
+                    publishYear: { $toInt: { $dateToString: { format: "%Y", date: "$publishDates" } } },
                     publishDates: 1,
                     quantity: 1,
                     pricePerUnit: 1,
@@ -45,7 +47,8 @@ const exportToExcelByMonth = async (req, res) => {
             },
             {
                 $match: {
-                    publishMonth: month
+                    publishMonth: month,
+                    publishYear: year,
                 }
             },
             {
@@ -84,6 +87,7 @@ const exportToExcelByMonth = async (req, res) => {
 
 const exportToExcelByPage = async (req, res) => {
     try {
+        const year = parseInt(req.params.year);
         const month = parseInt(req.params.month);
         const presses = await Press.aggregate([
             {
@@ -93,7 +97,14 @@ const exportToExcelByPage = async (req, res) => {
                 $match: {
                     productType: 'MT',
                     $expr: {
-                        $eq: [{ $month: "$publishDates" }, month] 
+                        $and: [
+                            {
+                                $eq: [{ $month: "$publishDates" }, month]
+                            },
+                            {
+                                $eq: [{ $year: "$publishDates" }, year]
+                            }
+                        ]
                     }
                 }
             },
@@ -120,6 +131,7 @@ const exportToExcelByPage = async (req, res) => {
 
 const exportToExcelByDay = async (req, res) => {
     try {
+        const year = parseInt(req.params.year);
         const day = parseInt(req.params.day);
         const month = parseInt(req.params.month);
         const presses = await Press.aggregate([
@@ -132,7 +144,8 @@ const exportToExcelByDay = async (req, res) => {
                     $expr: {
                         $and: [
                             { $eq: [{ $dayOfMonth: "$publishDates" }, day] },
-                            { $eq: [{ $month: "$publishDates" }, month] }
+                            { $eq: [{ $month: "$publishDates" }, month] },
+                            { $eq: [{ $year: "$publishDates" }, year] }
                         ]
                     }
                 }
