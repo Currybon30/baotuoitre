@@ -1,6 +1,6 @@
-const exportByMonth = async (month) => {
+const exportByMonth = async (year, month) => {
     try {
-        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByMonth/' + month, {
+        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByMonth/' + year + '/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -13,9 +13,9 @@ const exportByMonth = async (month) => {
     }
 }
 
-const exportByPage = async (month) => {
+const exportByPage = async (year, month) => {
     try {
-        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByPage/' + month, {
+        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByPage/' + year + '/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,9 +28,9 @@ const exportByPage = async (month) => {
     }
 }
 
-const exportByDay = async (month, day) => {
+const exportByDay = async (year, month, day) => {
     try {
-        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByDay/' + month + '/' + day, {
+        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByDay/' + year + '/' + month + '/' + day, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

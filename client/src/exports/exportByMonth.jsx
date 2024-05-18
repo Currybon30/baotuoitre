@@ -6,6 +6,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 const ExportByMonth = () => {
+    const [year, setYear] = useState('');
     const [month, setMonth] = useState('');
 
     const decToFrac = (decimal) => {
@@ -65,7 +66,7 @@ const ExportByMonth = () => {
 
     const handleExport = async () => {
         try {
-            const data = await exportByMonth(month);
+            const data = await exportByMonth(year, month);
             handleData(data);
         } catch (error) {
             console.error('Error exporting data:', error);
@@ -75,6 +76,24 @@ const ExportByMonth = () => {
 
     return (
         <div style={{margin: '10px'}}>
+            <FormControl variant="outlined" style={{ marginRight: '10px', width: '200px' }}>
+                <InputLabel id="year-label">Chọn năm</InputLabel>
+                <Select
+                    labelId="year-label"
+                    id="year-select"
+                    label="Year"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
+                >
+                    <MenuItem value={2024}>2024</MenuItem>
+                    <MenuItem value={2025}>2025</MenuItem>
+                    <MenuItem value={2026}>2026</MenuItem>
+                    <MenuItem value={2027}>2027</MenuItem>
+                    <MenuItem value={2028}>2028</MenuItem>
+                    <MenuItem value={2029}>2029</MenuItem>
+                    <MenuItem value={2030}>2030</MenuItem>
+                </Select>
+            </FormControl>
             <FormControl variant="outlined" style={{ marginRight: '10px', width: '200px' }}>
                 <InputLabel id="month-label">Chọn tháng</InputLabel>
                 <Select
