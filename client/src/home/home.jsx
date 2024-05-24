@@ -11,6 +11,11 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+                <br />
+                <h2 style={{color:'red'}}>Cập nhật mới - 24/05/2024</h2>
+                <ul>
+                    <li>Chỉnh sửa biểu mẫu theo số phiếu yêu cầu</li>
+                </ul>
             </div>
         </div>
     );

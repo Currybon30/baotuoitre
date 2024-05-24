@@ -126,6 +126,7 @@ export default function MyForm() {
             <form onSubmit={handleSubmit} method="post" className={classes.form}>
                 <label htmlFor="orderId" className={classes.label}>Số phiếu yêu cầu:</label>
                 <input type="text" id="orderId" value={orderId} onChange={(e) => setOrderId(e.target.value)} required/>
+                <br />
                 <label htmlFor="name" className={classes.label}>Họ và Tên:</label>
                 <input type="text" id="name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required/>
                 <br />
@@ -167,7 +168,7 @@ export default function MyForm() {
                 <input type="text" id="total" value={total} placeholder="Máy tự động điền" readOnly />
                 <br />
                 <div className={classes.btn}>
-                    <button type="submit">Lưu</button>
+                    <button type="submit">Tạo mới</button>
                     <button type="reset" onClick={handleReset}>Nhập lại</button>
                 </div>
             </form>

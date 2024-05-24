@@ -8,6 +8,8 @@ import BieuMauOne from './manage/bieumauone';
 import ExportByMonth from './exports/exportByMonth';
 import ExportByPage from './exports/exportByPage';
 import ExportByDay from './exports/exportByDay';
+import Suabieumau from './manage/suabieumau';
+
 
 
 export default function MainRouters() {
@@ -19,6 +21,7 @@ export default function MainRouters() {
                 <Route path="/taobieumau" Component={BieuMau} />
                 <Route path="/quanlybieumau" Component={QuanLy}  />
                 <Route path="/quanlybieumau/:id" Component={BieuMauOne} />
+                <Route path="/quanlybieumau/edit/:id" Component={Suabieumau} />
                 <Route path="/thongketheothang"  Component={ExportByMonth}/>
                 <Route path="/thongketheotrang"  Component={ExportByPage}/>
                 <Route path="/thongketheongay" Component={ExportByDay}/>

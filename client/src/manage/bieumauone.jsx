@@ -23,6 +23,10 @@ export default function BieuMauOne() {
         return fraction.toString();
     }
 
+    const handleEdit = () => {
+        navigate('/quanlybieumau/edit/' + id);
+    }
+
     const handleDelete = () => {
         setOpenDeleteDialog(true); // Open the delete confirmation dialog
     };
@@ -71,7 +75,10 @@ export default function BieuMauOne() {
             <p>Số lượng: {values.quantity}</p>
             <p>Đơn giá: {values.pricePerUnit}</p>
             <p>Tổng: {values.total}</p>
+            <Button variant="contained" onClick={handleEdit} style={{ marginBottom: '10px', marginLeft: '10px' }}>Sửa</Button>
             <Button variant="contained" onClick={handleDelete} style={{ marginBottom: '10px', marginLeft: '10px' }}>Xóa</Button>
+
+
 
             {/* Delete confirmation dialog */}
             <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
