@@ -45,6 +45,7 @@ export default function Suabieumau() {
             if (data.error) {
                 console.log(data.error);
             } else {
+                data.publishDates = data.publishDates.map(date => date.split('T')[0].split('-').reverse().join('/'));
                 data.size = decToFrac(data.size ? data.size.$numberDecimal : 0);
                 setValues(data);
             }
