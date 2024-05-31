@@ -1,0 +1,30 @@
+.sub-menu {
+    list-style: none;
+    width: 112px;
+    position: absolute;
+    text-align: start;
+    z-index: 9999;
+    top:36px;
+}
+
+.sub-menu.clicked {
+    display: none;
+}
+
+.sub-menu li{
+    background-color:rgb(94, 115, 233);
+    cursor: pointer;
+}
+
+.dropdown-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.dropdown-link:hover {
+    background-color: rgb(61, 84, 213);
+    color: orange;
+}

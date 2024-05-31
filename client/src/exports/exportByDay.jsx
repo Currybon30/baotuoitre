@@ -59,6 +59,8 @@ const ExportByDay = () => {
     }
 
     return (
+        <>
+        <h1>Thống kê theo ngày</h1>
         <div style={{margin: '10px'}}>
             <FormControl variant="outlined" style={{ marginRight: '10px', width: '200px' }}>
                 <InputLabel id="year-label">Chọn năm</InputLabel>
@@ -147,6 +149,7 @@ const ExportByDay = () => {
                 color="primary"
                 onClick={handleExport}>Xuất</Button>
         </div>
+        </>
     )             
 }
 

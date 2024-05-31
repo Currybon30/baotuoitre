@@ -60,6 +60,8 @@ const ExportByPage = () => {
     }
 
     return (
+        <>
+        <h1>Thống kê theo trang</h1>
         <div style={{margin: '10px'}}>
             <FormControl variant="outlined" style={{ marginRight: '10px', width: '200px' }}>
                 <InputLabel id="year-label">Chọn năm</InputLabel>
@@ -110,6 +112,7 @@ const ExportByPage = () => {
                 Xuất
             </Button>
         </div>
+        </>
     );
 }
 
