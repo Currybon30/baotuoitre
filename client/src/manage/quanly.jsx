@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/Search';
 import {Button, TextField} from '@material-ui/core';
 import {listByName} from './api-quanly';
+import { CgAdd } from "react-icons/cg";
 
 
 
@@ -83,7 +84,9 @@ export default function QuanLy() {
         return (
             <div className={classes.root}>
                 <p>Không có dữ liệu</p>
-                <Link to="/taobieumau">Tạo mới</Link>
+                <Link to="/taobieumau">
+                Tạo mới <CgAdd />
+                </Link>
             </div>
         )
     }

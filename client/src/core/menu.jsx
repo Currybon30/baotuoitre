@@ -3,6 +3,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Home from "@material-ui/icons/Home";
+import { TfiArrowCircleDown } from "react-icons/tfi";
+import ExportButton from "./DropdownExport/ExportButton";
+import { useState } from "react";
+import './nav.css';
+import { NavItems } from "./NavItems";
 
 
 const isActive = (location, path) => {
@@ -14,34 +19,49 @@ const isPartActive = (location, path) => {
 };
 
 const Menu = () => {
-
+    const [dropdown, setDropdown] = useState(false);
     const location = useLocation();
 
     return (
         <AppBar position="static">
             <Toolbar>
-                <div>
-                    <Link to="/">
-                        <Button style={isActive(location, "/")}>
-                            <Home />
-                        </Button>
-                    </Link>
-                    <Link to="/taobieumau">
-                        <Button style={isPartActive(location, "/taobieumau")} >Tạo biểu mẫu</Button>
-                    </Link>
-                    <Link to="/quanlybieumau">
-                        <Button style={isPartActive(location, "/quanlybieumau")}>Quản lý biểu mẫu</Button>
-                    </Link>
-                    <Link to="/thongketheongay">
-                        <Button style={isPartActive(location, "/thongketheongay")}>Thống kê theo ngày</Button>
-                    </Link>
-                    <Link to="/thongketheothang">
-                        <Button style={isPartActive(location, "/thongketheothang")}>Thống kê theo tháng</Button>
-                    </Link>
-                    <Link to="/thongketheotrang">
-                        <Button style={isPartActive(location, "/thongketheotrang")}>Thống kê theo trang</Button>
-                    </Link>
-                </div>
+                <ul className="nav-menu">
+                    {NavItems.map((item) => {
+                        if(item.label == "Home") {
+                            return (
+                                <li key={item.id}>
+                                    <Link to={item.path}>
+                                        <Button style={isActive(location, item.path)}>
+                                            <Home />
+                                        </Button>
+                                    </Link>
+                                </li>
+                            );
+                        }
+                        if(item.label == "Thống kê") {
+                            return (
+                                <li key={item.id} className={item.cName}>
+                                    <Button 
+                                        style={isPartActive(location, item.path)}
+                                        onMouseOver={() => setDropdown(true)}
+                                        onMouseLeave={() => setDropdown(false)}>
+                                        {item.label} <span style={{ marginLeft: '0.4rem' }}>
+                                        <TfiArrowCircleDown /></span>
+                                        {dropdown && <ExportButton/>}
+                                    </Button>
+                                    
+                                </li>
+                            );
+                        }
+                        return (
+                            <li key={item.id}>
+                                <Link to={item.path}>
+                                    <Button style={isPartActive(location, item.path)}>{item.label}</Button>
+                                </Link>
+                            </li>
+                        );
+                    })}
+                </ul>
             </Toolbar>
         </AppBar>
     );
