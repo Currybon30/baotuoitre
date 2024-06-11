@@ -6,6 +6,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import qcRoutes from './routes/qc.routes.js';
 import exportRoutes from './routes/export.routes.js';
+import authRoutes from './routes/auth.routes.js';
+import userRoutes from './routes/user.routes.js';
 
 const app = express();
 const CURRENT_WORKING_DIR = process.cwd();
@@ -20,6 +22,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', qcRoutes);
 app.use('/', exportRoutes);
+app.use('/', authRoutes);
+app.use('/', userRoutes);
 app.get('/', (req, res) => {
     res.send('Server đang chạy');
 });
