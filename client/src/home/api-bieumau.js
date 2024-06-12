@@ -1,10 +1,11 @@
-export const create = async (bieumau) => {
+export const create = async (bieumau, token) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses', {
+        let response = await fetch('http://localhost:8000/api/qc/presses', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(bieumau)
         })

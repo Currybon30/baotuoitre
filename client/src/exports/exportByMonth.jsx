@@ -4,8 +4,11 @@ import { exportByMonth } from './api-exports'; // Assuming you have an API file 
 import Fraction from 'fraction.js';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import auth from '../auth/auth-helper';
 
 const ExportByMonth = () => {
+    const jwt = auth.isAuthenticated();
+    const token = jwt.token;
     const [year, setYear] = useState('');
     const [month, setMonth] = useState('');
 
@@ -16,57 +19,62 @@ const ExportByMonth = () => {
     }
 
     const handleData = (data) => {
+        if(data.error) {
+            console.error('Error exporting data:', data.error);
+        }
         if (!data || data.length === 0) {
             alert('Không có dữ liệu để xuất');
             return;
         }
-        const headerMapping = {
-            orderId: 'Phiếu yêu cầu',
-            customerName: 'Tên khách hàng/Đơn vị',
-            address: 'Địa chỉ',
-            content: 'Nội dung',
-            publishDates: 'Ngày đăng',
-            productType: 'Loại báo',
-            size: 'Kích thước',
-            quantity: 'Số lượng',
-            totalPrice: 'Tổng tiền'
-        };
-    
-        const formattedData = data.map((item) => {
-            // Format publishDates array
-            const formattedDates = item.publishDates?.map((date) => {
-                const [year, month, day] = date.split('T')[0].split('-');
-                const formattedDate = `${day}/${month}/${year}`;
-                return formattedDate;
-            }).join(', '); // Join formatted dates into a string
-
-            // format size
-            item.size = decToFrac(item.size ? item.size.$numberDecimal : 0);
-    
-            return {
-                'Phiếu yêu cầu': item.orderId,
-                'Tên khách hàng/Đơn vị': item.customerName,
-                'Địa chỉ': item.address,
-                'Nội dung': item.content,
-                'Ngày đăng': formattedDates,
-                'Loại báo': item.productType,
-                'Kích thước': item.size,
-                'Số lượng': item.quantity,
-                'Tổng tiền': item.totalPrice
+        else if(!data.error){
+            const headerMapping = {
+                orderId: 'Phiếu yêu cầu',
+                customerName: 'Tên khách hàng/Đơn vị',
+                address: 'Địa chỉ',
+                content: 'Nội dung',
+                publishDates: 'Ngày đăng',
+                productType: 'Loại báo',
+                size: 'Kích thước',
+                quantity: 'Số lượng',
+                totalPrice: 'Tổng tiền'
             };
-        });
+        
+            const formattedData = data.map((item) => {
+                // Format publishDates array
+                const formattedDates = item.publishDates?.map((date) => {
+                    const [year, month, day] = date.split('T')[0].split('-');
+                    const formattedDate = `${day}/${month}/${year}`;
+                    return formattedDate;
+                }).join(', '); // Join formatted dates into a string
     
-        const worksheet = XLSX.utils.json_to_sheet(formattedData, { header: Object.values(headerMapping) });
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-        const dataFile = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-        saveAs(dataFile, 'thongkethang' + month + '.xlsx');
+                // format size
+                item.size = decToFrac(item.size ? item.size.$numberDecimal : 0);
+        
+                return {
+                    'Phiếu yêu cầu': item.orderId,
+                    'Tên khách hàng/Đơn vị': item.customerName,
+                    'Địa chỉ': item.address,
+                    'Nội dung': item.content,
+                    'Ngày đăng': formattedDates,
+                    'Loại báo': item.productType,
+                    'Kích thước': item.size,
+                    'Số lượng': item.quantity,
+                    'Tổng tiền': item.totalPrice
+                };
+            });
+        
+            const worksheet = XLSX.utils.json_to_sheet(formattedData, { header: Object.values(headerMapping) });
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+            const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+            const dataFile = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+            saveAs(dataFile, 'thongkethang' + month + '.xlsx');
+        }
     };    
 
     const handleExport = async () => {
         try {
-            const data = await exportByMonth(year, month);
+            const data = await exportByMonth(year, month, token);
             handleData(data);
         } catch (error) {
             console.error('Error exporting data:', error);

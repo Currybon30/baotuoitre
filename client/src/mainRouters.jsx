@@ -25,7 +25,7 @@ export default function MainRouters() {
                 <Route path="/quanlybieumau/:id" Component={BieuMauOne} />
                 <Route 
                     path="/quanlybieumau/edit/:id" 
-                    Component={
+                    element={
                         <PrivateRoute>
                             <Suabieumau />
                         </PrivateRoute>
