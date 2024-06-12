@@ -4,8 +4,11 @@ import { exportByDay } from './api-exports'; // Assuming you have an API file fo
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import Fraction from 'fraction.js';
+import auth from '../auth/auth-helper';
 
 const ExportByDay = () => {
+    const jwt = auth.isAuthenticated();
+    const token = jwt.token;
     const [year, setYear] = useState('');
     const [day, setDay] = useState('');
     const [month, setMonth] = useState('');
@@ -49,7 +52,7 @@ const ExportByDay = () => {
 
     const handleExport = async () => {
         try{
-            const data = await exportByDay(year, month, day);
+            const data = await exportByDay(year, month, day, token);
             handleData(data);
         }
         catch(error){

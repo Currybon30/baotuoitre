@@ -3,8 +3,11 @@ import { Button, MenuItem, Select, FormControl, InputLabel } from '@material-ui/
 import { exportByPage } from './api-exports'; // Assuming you have an API file for making requests
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import auth from '../auth/auth-helper';
 
 const ExportByPage = () => {
+    const jwt = auth.isAuthenticated();
+    const token = jwt.token;
     const [month, setMonth] = useState('');
     const [year, setYear] = useState('');
 
@@ -49,7 +52,7 @@ const ExportByPage = () => {
 
     const handleExport = async () => {
         try {
-            const data = await exportByPage(year, month);
+            const data = await exportByPage(year, month, token);
             console.log(data);
             handleData(data);
         }

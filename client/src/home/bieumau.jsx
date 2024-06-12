@@ -2,6 +2,8 @@ import { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import { makeStyles } from "@material-ui/core";
 import {create} from "./api-bieumau";
+import auth from "../auth/auth-helper";
+import { Navigate } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -31,6 +33,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function MyForm() {
+    const jwt = auth.isAuthenticated();
+    const token = jwt.token;
     const classes = useStyles();
 
     const [orderId, setOrderId] = useState('');
@@ -110,7 +114,7 @@ export default function MyForm() {
             pricePerUnit: pricePerUnit !== undefined && pricePerUnit !== null ? parseFloat(pricePerUnit) : 0,
             total: total !== undefined && total !== null ? parseFloat(total) : 0,
         }
-        create(bieumau).then(()=>{
+        create(bieumau, token).then(()=>{
             try {
                 alert("Đã lưu thành công");
                 handleReset();
@@ -121,57 +125,62 @@ export default function MyForm() {
         });
     }
 
-    return (
-        <div className={classes.container}>
-            <form onSubmit={handleSubmit} method="post" className={classes.form}>
-                <label htmlFor="orderId" className={classes.label}>Số phiếu yêu cầu:</label>
-                <input type="text" id="orderId" value={orderId} onChange={(e) => setOrderId(e.target.value)} required/>
-                <br />
-                <label htmlFor="name" className={classes.label}>Họ và Tên:</label>
-                <input type="text" id="name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required/>
-                <br />
-                <label htmlFor="address" className={classes.label}>Địa chỉ:</label>
-                <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} required/>
-                <br />
-                <label htmlFor="content" className={classes.label}>Nội dung:</label>
-                <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} required/>
-                <br />
-                <label htmlFor="type" className={classes.label}>Loại báo:</label>
-                <div className={classes.radiobtn}>
-                    <label htmlFor="MT">MT</label>
-                    <input type="radio" name="type" checked={productType === "MT"} value="MT" onChange={handleTypeChange} />
-                    <label htmlFor="TQ">TQ</label>
-                    <input type="radio" name="type" checked={productType === "TQ"} value="TQ" onChange={handleTypeChange} />
-                    <label htmlFor="Online">Online</label>
-                    <input type="radio" name="type" checked={productType === "Online"} value="Online" onChange={handleTypeChange} />
-                </div>
-                <br />
-                <label htmlFor="size" className={classes.label}>Kích thước:</label>
-                <input type="text" id="size" value={size} onChange={(e) => setSize(e.target.value)} placeholder="1/4" />
-                <br />
-                <label htmlFor="publishDate" className={classes.label}>Ngày đăng:</label>
-                <DatePicker
-                    value={publishDates}
-                    onChange={handleChangeDate}
-                    multiple
-                    format="DD/MM/YYYY"
-                    placeholder="Chọn ngày đăng"
-                />
-                <br />
-                <label htmlFor="quantity" className={classes.label}>Số lượng:</label>
-                <input type="text" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Máy tự động điền" readOnly/>
-                <br />
-                <label htmlFor="pricePerUnit" className={classes.label}>Đơn giá:</label>
-                <input type="text" id="pricePerUnit" value={pricePerUnit} onChange={(e) => setPricePerUnit(e.target.value)} onBlur={handleChangePricePerUnitOrQuantity} required/>
-                <br />
-                <label htmlFor="total" className={classes.label}>Tổng tiền:</label>
-                <input type="text" id="total" value={total} placeholder="Máy tự động điền" readOnly />
-                <br />
-                <div className={classes.btn}>
-                    <button type="submit">Tạo mới</button>
-                    <button type="reset" onClick={handleReset}>Nhập lại</button>
-                </div>
-            </form>
-        </div>
-    );
+    if(!jwt || !jwt.token) {
+        return <Navigate to="/dangnhap" />;
+    }
+    else{
+        return (
+            <div className={classes.container}>
+                <form onSubmit={handleSubmit} method="post" className={classes.form}>
+                    <label htmlFor="orderId" className={classes.label}>Số phiếu yêu cầu:</label>
+                    <input type="text" id="orderId" value={orderId} onChange={(e) => setOrderId(e.target.value)} required/>
+                    <br />
+                    <label htmlFor="name" className={classes.label}>Họ và Tên:</label>
+                    <input type="text" id="name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required/>
+                    <br />
+                    <label htmlFor="address" className={classes.label}>Địa chỉ:</label>
+                    <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} required/>
+                    <br />
+                    <label htmlFor="content" className={classes.label}>Nội dung:</label>
+                    <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} required/>
+                    <br />
+                    <label htmlFor="type" className={classes.label}>Loại báo:</label>
+                    <div className={classes.radiobtn}>
+                        <label htmlFor="MT">MT</label>
+                        <input type="radio" name="type" checked={productType === "MT"} value="MT" onChange={handleTypeChange} />
+                        <label htmlFor="TQ">TQ</label>
+                        <input type="radio" name="type" checked={productType === "TQ"} value="TQ" onChange={handleTypeChange} />
+                        <label htmlFor="Online">Online</label>
+                        <input type="radio" name="type" checked={productType === "Online"} value="Online" onChange={handleTypeChange} />
+                    </div>
+                    <br />
+                    <label htmlFor="size" className={classes.label}>Kích thước:</label>
+                    <input type="text" id="size" value={size} onChange={(e) => setSize(e.target.value)} placeholder="1/4" />
+                    <br />
+                    <label htmlFor="publishDate" className={classes.label}>Ngày đăng:</label>
+                    <DatePicker
+                        value={publishDates}
+                        onChange={handleChangeDate}
+                        multiple
+                        format="DD/MM/YYYY"
+                        placeholder="Chọn ngày đăng"
+                    />
+                    <br />
+                    <label htmlFor="quantity" className={classes.label}>Số lượng:</label>
+                    <input type="text" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Máy tự động điền" readOnly/>
+                    <br />
+                    <label htmlFor="pricePerUnit" className={classes.label}>Đơn giá:</label>
+                    <input type="text" id="pricePerUnit" value={pricePerUnit} onChange={(e) => setPricePerUnit(e.target.value)} onBlur={handleChangePricePerUnitOrQuantity} required/>
+                    <br />
+                    <label htmlFor="total" className={classes.label}>Tổng tiền:</label>
+                    <input type="text" id="total" value={total} placeholder="Máy tự động điền" readOnly />
+                    <br />
+                    <div className={classes.btn}>
+                        <button type="submit">Tạo mới</button>
+                        <button type="reset" onClick={handleReset}>Nhập lại</button>
+                    </div>
+                </form>
+            </div>
+        );
+    }
 }

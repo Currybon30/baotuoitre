@@ -2,9 +2,6 @@
 // - Delete multiple applications by year
 // - Choose multiple applications then delete
 
-// Unnecessary update:
-// - Login page
-
 import logo from '../assets/Tuổi_Trẻ_Logo.svg.png'
 
 const Home = () => {
@@ -19,9 +16,16 @@ const Home = () => {
                     </div>
                 </div>
                 <br />
-                <h2 style={{color:'red'}}>Cập nhật mới - 24/05/2024</h2>
+                <h2 style={{color:'red'}}>Cập nhật mới </h2>
                 <ul>
-                    <li>Chỉnh sửa biểu mẫu theo số phiếu yêu cầu</li>
+                    <li style={{fontWeight: 'bold'}}>12/06/2024</li>
+                    <ul>
+                        <li>Đăng nhập/Đăng xuất</li>
+                    </ul>
+                    <li style={{fontWeight: 'bold'}}>24/05/2024</li>
+                    <ul>
+                        <li>Chỉnh sửa biểu mẫu theo số phiếu yêu cầu</li>
+                    </ul>
                 </ul>
             </div>
         </div>

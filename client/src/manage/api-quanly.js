@@ -1,6 +1,6 @@
 const listAll = async () => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses', {
+        let response = await fetch('http://localhost:8000/api/qc/presses', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -16,7 +16,7 @@ const listAll = async () => {
 
 const listByName = async (params) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/customer/' + params, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/customer/' + params, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -30,13 +30,14 @@ const listByName = async (params) => {
     }
 }
 
-const listById = async (params) => {
+const listById = async (params, credentials) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/' + params, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/' + params, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials
             },
         })
         return await response.json()
@@ -46,13 +47,14 @@ const listById = async (params) => {
     }
 }
 
-const removeById = async (params) => {
+const removeById = async (params, credentials) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/' + params, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/' + params, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials
             },
         })
         return await response.json()
@@ -62,13 +64,14 @@ const removeById = async (params) => {
     }
 }
 
-const updateById = async (params, data) => {
+const updateById = async (params, data, credentials) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/' + params, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/' + params, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials
             },
             body: JSON.stringify(data)
         })
