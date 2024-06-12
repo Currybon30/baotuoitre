@@ -10,7 +10,7 @@ router.route('/api/qc/presses')
 
 router.param('id', qcCtrl.findById)
 router.route('/api/qc/presses/:id')
-    .get(qcCtrl.read)
+    .get(authCtrl.requireSignin, qcCtrl.read)
     .put(authCtrl.requireSignin, authCtrl.hasAuthorization, qcCtrl.update)
     .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, qcCtrl.remove)
 
