@@ -1,5 +1,7 @@
 import { signout } from './api-auth.js'
 
+
+
 const auth = {
     isAuthenticated() {
         if (typeof window == "undefined") return false;
@@ -29,6 +31,13 @@ const auth = {
                 cb();
             }
         }
+    },
+    runLogoutTimer(timer) {
+        setTimeout(() => {
+            signout();
+            alert('Vui lòng đăng nhập lại');
+            this.clearJWT(() => window.location.reload());
+        }, timer)
     }
 }
 

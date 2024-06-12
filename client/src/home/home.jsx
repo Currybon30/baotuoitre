@@ -2,9 +2,6 @@
 // - Delete multiple applications by year
 // - Choose multiple applications then delete
 
-// Unnecessary update:
-// - Login page
-
 import logo from '../assets/Tuổi_Trẻ_Logo.svg.png'
 
 const Home = () => {

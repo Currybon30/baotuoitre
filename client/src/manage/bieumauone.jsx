@@ -43,7 +43,6 @@ export default function BieuMauOne() {
             if (data.error) {
                 console.log(data.error);
             } else {
-                console.log(data);
                 navigate('/quanlybieumau');
 
             }
@@ -56,7 +55,6 @@ export default function BieuMauOne() {
     useEffect(() => {
         const token = jwt.token;
         listById(id, token).then((data) => {
-            console.log(data); // Log the data to see its structure
             if (data.error) {
                 console.log(data.error);
             } else {

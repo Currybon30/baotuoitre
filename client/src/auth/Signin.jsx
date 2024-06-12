@@ -62,6 +62,13 @@ export default function Signin() {
             auth.authenticate(response, () => {
                 setValues({ ...values, error: '', redirectToReferrer: true });
             });
+            const logoutWarning = () => {
+                setTimeout(() => {
+                    alert('Phiên đăng nhập sẽ hết sau 5 phút nữa');
+                }, 10500);
+            }
+            logoutWarning();
+            auth.runLogoutTimer(10800)
         }
     }
 
