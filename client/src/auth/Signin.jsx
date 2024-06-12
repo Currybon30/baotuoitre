@@ -65,10 +65,10 @@ export default function Signin() {
             const logoutWarning = () => {
                 setTimeout(() => {
                     alert('Phiên đăng nhập sẽ hết sau 5 phút nữa');
-                }, 10500);
+                }, 10500000); 
             }
             logoutWarning();
-            auth.runLogoutTimer(10800)
+            auth.runLogoutTimer(10800000)
         }
     }
 
