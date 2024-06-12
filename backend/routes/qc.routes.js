@@ -1,18 +1,18 @@
 import express from 'express';
 import qcCtrl from '../controllers/qc.controllers.js';
-import authCtrl from '../controllers/auth.controllers.js';
+// import authCtrl from '../controllers/auth.controllers.js';
 
 const router = express.Router();
 
 router.route('/api/qc/presses')
     .get(qcCtrl.listAll)
-    .post(authCtrl.requireSignin, qcCtrl.create)
+    .post(qcCtrl.create)
 
 router.param('id', qcCtrl.findById)
 router.route('/api/qc/presses/:id')
-    .get(authCtrl.requireSignin, qcCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, qcCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, qcCtrl.remove)
+    .get(qcCtrl.read)
+    .put(qcCtrl.update)
+    .delete(qcCtrl.remove)
 
 router.route('/api/qc/presses/customer/:customerName')
     .get(qcCtrl.findByName)
