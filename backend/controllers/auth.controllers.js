@@ -10,12 +10,12 @@ const signin = async (req, res) => {
         
         // Check if user exists
         if (!user)
-            return res.status(401).json({ error: "User not found" });
+            return res.status(401).json({ error: "Username hoặc password không đúng" });
         
         // Check if password is correct
         const isPasswordValid = await user.authenticate(req.body.password);
         if (!isPasswordValid)
-            return res.status(401).json({ error: "Email and password don't match." });
+            return res.status(401).json({ error: "Username hoặc password không đúng" });
 
         // Generate token
         const token = jwt.sign({ _id: user._id }, config.jwtSecret, { expiresIn: '12h' });
@@ -30,7 +30,7 @@ const signin = async (req, res) => {
         });
     } catch (err) {
         console.error(err);
-        return res.status(401).json({ error: "Could not sign in" });
+        return res.status(401).json({ error: "Lỗi! Không thể đăng nhập" });
     }
 }
 
@@ -38,7 +38,7 @@ const signout = (req, res) => {
     // Clear token cookie
     res.clearCookie("t");
     // Send signout message
-    return res.status(200).json({ message: "Signed out" });
+    return res.status(200).json({ message: "Đã đăng xuất" });
 }
 
 const requireSignin = expressjwt({
