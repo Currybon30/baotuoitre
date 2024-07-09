@@ -82,11 +82,26 @@ const findById = async (req, res, next, id) => {
     }   
 }
 
+const findByNameCaseInsensitive = async (req, res) => {
+    try {
+        let {name} = req.query;
+        let presses = await Press.find({customerName: {$regex: name, $options: 'i'}});
+        return res.json(presses);
+    }
+    catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
+        });
+    }
+}
+
 const findByName = async (req, res) => {
     try {
-        let presses = await Press.find({customerName: req.params.customerName});
+        let {name} = req.query;
+        let presses = await Press.find({customerName: {$regex: name}});
         return res.json(presses);
-    } catch (err) {
+    }
+    catch (err) {
         return res.status(400).json({
             error: errorHandler.getErrorMessage(err)
         });
@@ -122,15 +137,35 @@ const remove = async (req, res) => {
     }
 }
 
+const removeMultiplePresses = async (req, res) => {
+    try {
+        let {pressIds} = req.body;
+        if(!Array.isArray(pressIds)) {
+            return res.status(400).json({
+                error: "Presses to delete must be an array"
+            });
+        }
+        let deletedPresses = await Press.deleteMany({_id: {$in: pressIds}});
+        return res.json(deletedPresses);
+    }
+    catch (err) {
+        return res.status(400).json({
+            error: errorHandler.getErrorMessage(err)
+        });
+    }
+}
+
 
 export default {
     create,
     listAll,
     findById,
     read,
+    findByNameCaseInsensitive,
     findByName,
     update,
-    remove
+    remove,
+    removeMultiplePresses
 }
 
 
