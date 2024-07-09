@@ -14,9 +14,9 @@ const listAll = async () => {
     }
 }
 
-const listByName = async (params) => {
+const searchName = async (name) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/customer/' + params, {
+        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/customer?name=' + name, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -26,7 +26,23 @@ const listByName = async (params) => {
         return await response.json()
     }
     catch (err) {
-        console.log(err)
+        return err.json()
+    }
+}
+
+const searchNameCaseInsensitive = async (name) => {
+    try {
+        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/customer/case-insensitive?name=' + name, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        return await response.json()
+    }
+    catch (err) {
+        return err.json()
     }
 }
 
@@ -84,7 +100,8 @@ const updateById = async (params, data, credentials) => {
 
 export { 
     listAll,
-    listByName,
+    searchName,
+    searchNameCaseInsensitive,
     listById,
     removeById,
     updateById

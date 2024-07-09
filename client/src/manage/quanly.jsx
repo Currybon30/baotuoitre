@@ -3,14 +3,14 @@ import { makeStyles } from "@material-ui/core";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import {listAll} from './api-quanly';
+import {listAll, searchName, searchNameCaseInsensitive} from './api-quanly';
 import {Link} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/Search';
+import Checkbox from '@material-ui/core/Checkbox';
 import {Button, TextField} from '@material-ui/core';
-import {listByName} from './api-quanly';
 import { CgAdd } from "react-icons/cg";
 
 
@@ -42,6 +42,7 @@ export default function QuanLy() {
     const classes = useStyles();
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
+    const [caseInsensitive, setCaseInsensitive] = useState(false);
     const [, setError] = useState(null);
 
     useEffect(() => {
@@ -64,15 +65,19 @@ export default function QuanLy() {
                     setError(err)
                 })
         }
-        else{
-            listByName(searchValue)
+        else if (caseInsensitive){
+            searchNameCaseInsensitive(searchValue)
                 .then(data => {
-                    if(data.length === 0){
-                        alert('Không tìm thấy')
-                    }
-                    else{
-                        setData(data)
-                    }
+                    setData(data)
+                })
+                .catch(err => {
+                    setError(err)
+                })
+        }
+        else {
+            searchName(searchValue)
+                .then(data => {
+                    setData(data)
                 })
                 .catch(err => {
                     setError(err)
@@ -83,7 +88,7 @@ export default function QuanLy() {
     if(data.length === 0){
         return (
             <div className={classes.root}>
-                <p>Không có dữ liệu</p>
+                <p>Không có dữ liệu hoặc server đang được khởi động</p>
                 <Link to="/taobieumau">
                 Tạo mới <CgAdd />
                 </Link>
@@ -110,10 +115,16 @@ export default function QuanLy() {
                         <SearchIcon />
                     </Button>
                 </div>
+                <div className={classes.search}>
+                    <Checkbox checked={caseInsensitive} onChange={(e) => setCaseInsensitive(e.target.checked)} />
+                    <p>Không phân biệt chữ hoa và chữ thường</p>
+                </div>
 
 
                 <Paper>
-                    <Typography variant="h6" color="primary" align="center">Danh sách biểu mẫu</Typography>
+                    <Typography variant="h6" color="primary" align="center">
+                    Danh sách biểu mẫu
+                    </Typography>
                     <Divider />
                     <List className={classes.list}>
                         {data.map((item, i) => {
