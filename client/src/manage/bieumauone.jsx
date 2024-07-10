@@ -63,7 +63,7 @@ export default function BieuMauOne() {
         }).catch(error => {
             console.error("Error fetching data:", error); // Log any errors that occur
         });
-    }, [id])
+    }, [id, jwt.token])
 
 
     if (!jwt){

@@ -55,7 +55,7 @@ export default function Suabieumau() {
             console.log(data)
         });
         
-    }, [id]);
+    }, [id, token]);
 
     const handleChangeDate = (dateArray) => {
         const newPublishDates = dateArray.map(date => date.format("DD/MM/YYYY"));
