@@ -44,8 +44,26 @@ export default function QuanLy() {
     const [data, setData] = useState([]);
     const [caseInsensitive, setCaseInsensitive] = useState(false);
     const [, setError] = useState(null);
+    const [serverCheck, setServerCheck] = useState(true);
 
     useEffect(() => {
+        const checkServerStatus = async () => {
+            try {
+                await fetch('thuytrang-tuoitre-server.onrender.com/', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                })
+                setServerCheck(true)
+            }
+            catch (err) {
+                setServerCheck(false)
+            }  
+        }
+        
+        checkServerStatus()
         listAll()
             .then(data => {
                 setData(data)
@@ -85,10 +103,17 @@ export default function QuanLy() {
         }
     }
 
+    if(!serverCheck){
+        return (
+            <div className={classes.root}>
+                <p>Server đang được khởi động hoặc gặp vài vấn đề</p>
+            </div>
+        )
+    }
     if(data.length === 0){
         return (
             <div className={classes.root}>
-                <p>Không có dữ liệu hoặc server đang được khởi động</p>
+                <p>Không tìm thấy dữ liệu</p>
                 <Link to="/taobieumau">
                 Tạo mới <CgAdd />
                 </Link>
@@ -122,8 +147,7 @@ export default function QuanLy() {
 
 
                 <Paper>
-                    <Typography variant="h6" color="primary" align="center">
-                    Danh sách biểu mẫu
+                    <Typography variant="h6" color="primary" align='center'> Danh sách biểu mẫu
                     </Typography>
                     <Divider />
                     <List className={classes.list}>
