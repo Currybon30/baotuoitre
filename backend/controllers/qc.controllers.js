@@ -85,7 +85,58 @@ const findById = async (req, res, next, id) => {
 const findByNameCaseInsensitive = async (req, res) => {
     try {
         let {name} = req.query;
-        let presses = await Press.find({customerName: {$regex: name, $options: 'i'}});
+
+        // let presses = await Press.find({customerName: {$regex: name, $options: 'i'}});
+        
+        let presses = await Press.aggregate([
+            {
+                $match: {
+                    customerName: {$regex: name, $options: 'i'}
+                }
+            },
+            {
+                $project: {
+                    orderId: 1,
+                    orderParts: {
+                        $split: ["$orderId", "/"]
+                    },
+                    customerName: 1,
+                    address: 1,
+                    content: 1,
+                    productType: 1,
+                    size: 1,
+                    publishDates: 1,
+                    quantity: 1,
+                    pricePerUnit: 1,
+                    total: 1
+                }
+            },
+            {
+                $addFields: {
+                    orderNumber: { $toInt: { $arrayElemAt: ["$orderParts", 0] } }
+                }
+            },
+            {
+                $addFields: {
+                    mmyy: { $arrayElemAt: ["$orderParts", 1] }
+                }
+            },
+            {
+                $addFields: {
+                    mm: { $substrCP: ["$mmyy", 0, 2] },
+                    yy: { $substrCP: ["$mmyy", 2, 2] }
+                }
+            },
+            {
+                $sort: {
+                    yy: 1,
+                    mm: 1,
+                    orderNumber: 1
+                }
+            }
+        ])
+        
+        
         return res.json(presses);
     }
     catch (err) {
@@ -98,7 +149,56 @@ const findByNameCaseInsensitive = async (req, res) => {
 const findByName = async (req, res) => {
     try {
         let {name} = req.query;
-        let presses = await Press.find({customerName: {$regex: name}});
+        // let presses = await Press.find({customerName: {$regex: name}});
+        
+        let presses = await Press.aggregate([
+            {
+                $match: {
+                    customerName: {$regex: name}
+                }
+            },
+            {
+                $project: {
+                    orderId: 1,
+                    orderParts: {
+                        $split: ["$orderId", "/"]
+                    },
+                    customerName: 1,
+                    address: 1,
+                    content: 1,
+                    productType: 1,
+                    size: 1,
+                    publishDates: 1,
+                    quantity: 1,
+                    pricePerUnit: 1,
+                    total: 1
+                }
+            },
+            {
+                $addFields: {
+                    orderNumber: { $toInt: { $arrayElemAt: ["$orderParts", 0] } }
+                }
+            },
+            {
+                $addFields: {
+                    mmyy: { $arrayElemAt: ["$orderParts", 1] }
+                }
+            },
+            {
+                $addFields: {
+                    mm: { $substrCP: ["$mmyy", 0, 2] },
+                    yy: { $substrCP: ["$mmyy", 2, 2] }
+                }
+            },
+            {
+                $sort: {
+                    yy: 1,
+                    mm: 1,
+                    orderNumber: 1
+                }
+            }
+        ])
+        
         return res.json(presses);
     }
     catch (err) {
