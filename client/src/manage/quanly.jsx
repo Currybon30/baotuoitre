@@ -44,12 +44,12 @@ export default function QuanLy() {
     const [data, setData] = useState([]);
     const [caseInsensitive, setCaseInsensitive] = useState(false);
     const [, setError] = useState(null);
-    const [serverCheck, setServerCheck] = useState(true);
+    const [serverCheck, setServerCheck] = useState(false);
 
     useEffect(() => {
         const checkServerStatus = async () => {
             try {
-                await fetch('thuytrang-tuoitre-server.onrender.com/', {
+                await fetch('https://thuytrang-tuoitre-server.onrender.com/', {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
