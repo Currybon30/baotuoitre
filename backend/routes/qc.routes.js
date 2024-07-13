@@ -24,6 +24,4 @@ router.route('/api/qc/presses/:id')
     .delete(authCtrl.requireSignin, qcCtrl.remove)
 
 
-
-
 export default router;
