@@ -9,9 +9,16 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/Search';
-import Checkbox from '@material-ui/core/Checkbox';
-import {Button, TextField} from '@material-ui/core';
+import Checkbox from '@mui/material/Checkbox';
+import {Button, TextField, Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText} from '@material-ui/core';
 import { CgAdd } from "react-icons/cg";
+import './manage.css';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteMultiItems } from './api-quanly';
+import auth from '../auth/auth-helper';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 
@@ -40,16 +47,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QuanLy() {
     const classes = useStyles();
+    const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
     const [caseInsensitive, setCaseInsensitive] = useState(false);
     const [, setError] = useState(null);
-    const [serverCheck, setServerCheck] = useState(true);
+    const [serverCheck, setServerCheck] = useState(false);
+    const [multiSelect, setMultiSelect] = useState(false);
+    const [deletedItems, setDeletedItems] = useState([]);
+    const [openNotification, setOpenNotification] = useState(false);
+    const jwt = auth.isAuthenticated();
 
     useEffect(() => {
         const checkServerStatus = async () => {
             try {
-                await fetch('thuytrang-tuoitre-server.onrender.com/', {
+                await fetch('https://thuytrang-tuoitre-server.onrender.com/', {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
@@ -72,6 +84,22 @@ export default function QuanLy() {
                 setError(err)
             })
     }, [])
+
+
+    const handleCheckboxClick = (e, itemId) => {
+        if(e.target.checked){
+            setDeletedItems(() => {
+                const items = [...deletedItems, itemId]
+                return items
+            })
+        }
+        else{
+            setDeletedItems(() => {
+                const items = deletedItems.filter(item => item !== itemId)
+                return items
+            })
+        }
+    };
 
     const handleSearch = () => {
         if(searchValue === ''){
@@ -103,10 +131,51 @@ export default function QuanLy() {
         }
     }
 
+
+
+    const handleCloseNotification = () => {
+        setOpenNotification(false)
+    }
+
+    const handleConfirmDeleteMultiple = async () => {
+        const jsonDeletedItems = {
+            pressIds: deletedItems
+        };
+        await deleteMultiItems(jsonDeletedItems, jwt.token).then(async (data) => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                await listAll()
+                    .then(data => {
+                        setData(data);
+                    })
+                    .catch(err => {
+                        setError(err);
+                    });
+                setDeletedItems([]);
+                handleCloseNotification();
+                await setTimeout(() => {
+                    alert('Xóa thành công');
+                }, 500);
+            }
+        });
+        
+    }
+
+    const handleDeleteMultiple = () => {
+        if(!jwt){
+            navigate('/dangnhap');
+        }
+        else {
+            setOpenNotification(true);
+        }
+    }
+    
+
     if(!serverCheck){
         return (
             <div className={classes.root}>
-                <p>Server đang được khởi động hoặc gặp vài vấn đề</p>
+                <p>Server đang được khởi động</p>
             </div>
         )
     }
@@ -145,23 +214,87 @@ export default function QuanLy() {
                     <p>Không phân biệt chữ hoa và chữ thường</p>
                 </div>
 
-
+                <div className="btn-multi-select-container">
+                    {
+                        multiSelect && deletedItems.length == 0 &&
+                        <button className="btn-delete" onClick={handleDeleteMultiple} disabled>
+                            <DeleteIcon className='btn-delete-icon'/>
+                            <p>Xóa</p>
+                        </button>
+                    }
+                    {
+                        multiSelect && deletedItems.length > 0 &&
+                        <button className="btn-delete" onClick={handleDeleteMultiple}>
+                            <DeleteIcon className='btn-delete-icon'/>
+                            <p>Xóa</p>
+                        </button>
+                    }
+                    {
+                        !multiSelect &&
+                        <button className='btn-multi-select' onClick={() => setMultiSelect(true)}>Chọn nhiều</button>
+                    }
+                    {
+                        multiSelect &&
+                        <button className='btn-multi-select' onClick={() => {setMultiSelect(false); setDeletedItems([])}}>Hủy</button>
+                    }
+                </div>
+                
+                
                 <Paper>
                     <Typography variant="h6" color="primary" align='center'> Danh sách biểu mẫu
                     </Typography>
                     <Divider />
                     <List className={classes.list}>
                         {data.map((item, i) => {
-                            return (
+                            return multiSelect ? (
+                                <div key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <ListItem className={deletedItems.includes(item._id)  ? "checked-item" : "unchecked-item"}>
+                                        <ListItemText primary={item.orderId} 
+                                        secondary={<p>{"Tên khách hàng: " + item.customerName}</p>} 
+                                        />
+                                        <Checkbox
+                                            checked={deletedItems.includes(item._id)}
+                                            onClick={(e) => handleCheckboxClick(e, item._id)}
+                                        />
+                                    </ListItem>
+                                </div>
+                            ) : (
                                 <Link to={`/quanlybieumau/${item._id}`} key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
                                     <ListItem button>
-                                        <ListItemText primary={item.orderId} secondary={<p>{"Tên khách hàng: "+item.customerName}</p>} />
+                                        <ListItemText primary={item.orderId} secondary={<p>{"Tên khách hàng: " + item.customerName}</p>} />
                                     </ListItem>
                                 </Link>
-                            )
+                            );
                         })}
                     </List>
                 </Paper>
+
+
+                {/* Delete confirmation dialog */}
+                <Dialog open={openNotification} onClose={handleCloseNotification}>
+                    <DialogTitle>Xác nhận xóa</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Dữ liệu không thể được khôi phục lại sau khi xóa thành công.
+                            <br/>
+                            <b>Kiểm tra lại các danh mục đã chọn:</b>
+                            {deletedItems.map((id) => {
+                                const item = data.find((item) => item._id === id);
+                                return (
+                                    <p key={id}>{item.orderId}: {item.customerName}</p>
+                                );
+                            })}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseNotification} color="primary">
+                            Hủy
+                        </Button>
+                        <Button onClick={handleConfirmDeleteMultiple} color="primary">
+                            Xác nhận
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }

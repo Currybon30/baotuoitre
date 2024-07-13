@@ -18,6 +18,10 @@ const Home = () => {
                 <br />
                 <h2 style={{color:'red'}}>Cập nhật mới </h2>
                 <ul>
+                    <li style={{fontWeight: 'bold'}}>15/07/2024</li>
+                    <ul>
+                        <li>Xóa nhiều biểu mẫu</li>
+                    </ul>
                     <li style={{fontWeight: 'bold'}}>09/07/2024</li>
                     <ul>
                         <li>Tìm kiếm theo tên</li>

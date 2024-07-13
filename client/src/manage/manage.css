@@ -1,0 +1,39 @@
+.checked-item{
+    background-color: rgba(208, 208, 208, 0.51);
+}
+.uncheck-item{
+    background-color: white;
+}
+
+.btn-multi-select-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px; /* Optional: if you need margin at the bottom of the container */
+}
+
+.btn-multi-select {
+    padding: 10px;
+    border: none;
+    background: rgb(246, 215, 215);
+}
+.btn-multi-select:hover {
+    padding: 10px;
+    border: none;
+    background: rgb(243, 190, 190);
+}
+.btn-delete-icon{
+    margin-right: 5px;
+}
+.btn-delete{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: rgb(246, 215, 215);
+    margin-right: 5px;
+    padding: 10px;
+    border: none;
+}
+.btn-delete:hover{
+    background: rgb(243, 190, 190);
+    border: none;
+}

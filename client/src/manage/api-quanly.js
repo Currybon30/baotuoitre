@@ -1,6 +1,6 @@
 const listAll = async () => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses', {
+        let response = await fetch('http://localhost:8000/api/qc/presses', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -16,7 +16,7 @@ const listAll = async () => {
 
 const searchName = async (name) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/customer?name=' + name, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/customer?name=' + name, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -32,7 +32,7 @@ const searchName = async (name) => {
 
 const searchNameCaseInsensitive = async (name) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/customer/case-insensitive?name=' + name, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/customer/case-insensitive?name=' + name, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -48,7 +48,7 @@ const searchNameCaseInsensitive = async (name) => {
 
 const listById = async (params, credentials) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/' + params, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/' + params, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -65,7 +65,7 @@ const listById = async (params, credentials) => {
 
 const removeById = async (params, credentials) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/' + params, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/' + params, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -82,7 +82,7 @@ const removeById = async (params, credentials) => {
 
 const updateById = async (params, data, credentials) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/' + params, {
+        let response = await fetch('http://localhost:8000/api/qc/presses/' + params, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -98,11 +98,30 @@ const updateById = async (params, data, credentials) => {
     }
 }
 
+const deleteMultiItems = async (itemArray, credentials) => {
+    try {
+        let res = await fetch('http://localhost:8000/api/qc/presses/delete-many', {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + credentials,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(itemArray)
+        })
+        return await res.json()
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
 export { 
     listAll,
     searchName,
     searchNameCaseInsensitive,
     listById,
     removeById,
-    updateById
+    updateById,
+    deleteMultiItems
 }
