@@ -17,6 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteMultiItems } from './api-quanly';
 import auth from '../auth/auth-helper';
 import { useNavigate } from 'react-router-dom';
+import { createHistory } from '../history/api-history';
 
 
 
@@ -137,10 +138,37 @@ export default function QuanLy() {
         setOpenNotification(false)
     }
 
+    // function to send data to history collection before deleting
+    const sendToHistory = async () => {
+        deletedItems.map((id) => {
+            const item = data.find((item) => item._id === id);
+            const historyData = {
+                orderId: item.orderId,
+                customerName: item.customerName,
+                address: item.address,
+                content: item.content,
+                productType: item.productType,
+                size: parseFloat(item.size.$numberDecimal),
+                publishDates: item.publishDates,
+                quantity: item.quantity,
+                pricePerUnit: item.pricePerUnit,
+                total: item.total,
+            }
+            createHistory(historyData, jwt.token).then((data) => {
+                if (data.error) {
+                    console.log(data.error);
+                }
+            }); 
+            return null;
+        })
+    }
+
     const handleConfirmDeleteMultiple = async () => {
         const jsonDeletedItems = {
             pressIds: deletedItems
         };
+
+        await sendToHistory();
         await deleteMultiItems(jsonDeletedItems, jwt.token).then(async (data) => {
             if (data.error) {
                 console.log(data.error);
@@ -155,7 +183,7 @@ export default function QuanLy() {
                 setDeletedItems([]);
                 handleCloseNotification();
                 await setTimeout(() => {
-                    alert('Xóa thành công');
+                    alert('Xóa thành công. Dữ liệu đã xóa sẽ được lưu trong database trong 30 ngày. Liên hệ admin để khôi phục dữ liệu.');
                 }, 500);
             }
         });
@@ -275,8 +303,6 @@ export default function QuanLy() {
                     <DialogTitle>Xác nhận xóa</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Dữ liệu không thể được khôi phục lại sau khi xóa thành công.
-                            <br/>
                             <b>Kiểm tra lại các danh mục đã chọn:</b>
                             {deletedItems.map((id) => {
                                 const item = data.find((item) => item._id === id);

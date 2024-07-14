@@ -125,7 +125,7 @@ export default function MyForm() {
         });
     }
 
-    if(!jwt || !jwt.token) {
+    if(!jwt) {
         return <Navigate to="/dangnhap" />;
     }
     else{

@@ -5,6 +5,7 @@
     text-align: start;
     z-index: 9999;
     top:36px;
+    margin-left: 22px;
 }
 
 .sub-menu.clicked {
