@@ -1,5 +1,5 @@
-import History from "../models/history.model";
-import dbErrorHandler from "../helpers/dbErrorHandler";
+import History from "../models/history.model.js";
+import dbErrorHandler from "../helpers/dbErrorHandler.js";
 
 const create = async (req, res) => {
     try {

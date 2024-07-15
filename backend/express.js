@@ -8,6 +8,7 @@ import qcRoutes from './routes/qc.routes.js';
 import exportRoutes from './routes/export.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
+import historyRoutes from './routes/history.routes.js';
 
 const app = express();
 const CURRENT_WORKING_DIR = process.cwd();
@@ -24,6 +25,7 @@ app.use('/', qcRoutes);
 app.use('/', exportRoutes);
 app.use('/', authRoutes);
 app.use('/', userRoutes);
+app.use('/', historyRoutes);
 app.get('/', (req, res) => {
     res.send('Server đang chạy');
 });

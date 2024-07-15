@@ -3,22 +3,18 @@ const HistorySchema = new mongoose.Schema({
     orderId: {
         type: String,
         trim: true,
-        required: 'Phiếu yêu cầu không được để trống',
     },
     customerName: {
         type: String,
         trim: true,
-        required: 'Tên khách hàng không được để trống',
     },
     address: {
         type: String,
         trim: true,
-        required: 'Địa chỉ không được để trống',
     },
     content: {
         type: String,
         trim: true,
-        required: "Nội dung không được để trống",
     },
     productType:{
         type: String,
@@ -29,7 +25,6 @@ const HistorySchema = new mongoose.Schema({
     size: {
         type: mongoose.Schema.Types.Decimal128,
         trim: true,
-        required: "Kích thước không được để trống",
     },
     publishDates: [{
         type: Date
@@ -41,12 +36,16 @@ const HistorySchema = new mongoose.Schema({
     pricePerUnit: {
         type: Number,
         trim: true,
-        required: "Đơn giá không được để trống",
     },
     total: {
         type: Number,
         trim: true,
     }, // Total automatically calculated (product of quantity and pricePerUnit)
+    createAt: {
+        type: Date,
+        default: Date.now,
+        expires: 60*60*24*30 // 30 days
+    }
 })
 
 const History = mongoose.model('History', HistorySchema, 'history');
