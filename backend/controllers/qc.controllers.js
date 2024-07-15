@@ -255,7 +255,6 @@ const removeMultiplePresses = async (req, res) => {
     }
 }
 
-
 export default {
     create,
     listAll,

@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import errorHandler from "../helpers/dbErrorHandler.js";
 
 const create = async (req, res) => {
     try{
