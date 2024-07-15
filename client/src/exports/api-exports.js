@@ -1,6 +1,6 @@
 const exportByMonth = async (year, month, token) => {
     try {
-        const response = await fetch('http://localhost:8000/api/export/exportByMonth/' + year + '/' + month, {
+        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByMonth/' + year + '/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const exportByMonth = async (year, month, token) => {
 
 const exportByPage = async (year, month, token) => {
     try {
-        const response = await fetch('http://localhost:8000/api/export/exportByPage/' + year + '/' + month, {
+        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByPage/' + year + '/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const exportByPage = async (year, month, token) => {
 
 const exportByDay = async (year, month, day, token) => {
     try {
-        const response = await fetch('http://localhost:8000/api/export/exportByDay/' + year + '/' + month + '/' + day, {
+        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/export/exportByDay/' + year + '/' + month + '/' + day, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
