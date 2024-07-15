@@ -183,7 +183,7 @@ export default function QuanLy() {
                 setDeletedItems([]);
                 handleCloseNotification();
                 await setTimeout(() => {
-                    alert('Xóa thành công. Dữ liệu đã xóa sẽ được lưu trong database trong 30 ngày. Liên hệ admin để khôi phục dữ liệu.');
+                    alert('Xóa thành công');
                 }, 500);
             }
         });
@@ -303,6 +303,7 @@ export default function QuanLy() {
                     <DialogTitle>Xác nhận xóa</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
+                            <p>Dữ liệu xóa sẽ được lưu trong database trong 30 ngày. Liên hệ admin để khôi phục dữ liệu.</p> <br/>
                             <b>Kiểm tra lại các danh mục đã chọn:</b>
                             {deletedItems.map((id) => {
                                 const item = data.find((item) => item._id === id);
