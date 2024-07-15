@@ -98,11 +98,30 @@ const updateById = async (params, data, credentials) => {
     }
 }
 
+const deleteMultiItems = async (itemArray, credentials) => {
+    try {
+        let res = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/qc/presses/delete-many', {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + credentials,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(itemArray)
+        })
+        return await res.json()
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
 export { 
     listAll,
     searchName,
     searchNameCaseInsensitive,
     listById,
     removeById,
-    updateById
+    updateById,
+    deleteMultiItems
 }
