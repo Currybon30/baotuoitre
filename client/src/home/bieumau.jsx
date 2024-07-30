@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core";
 import {create} from "./api-bieumau";
 import auth from "../auth/auth-helper";
 import { Navigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -36,6 +37,7 @@ export default function MyForm() {
     const jwt = auth.isAuthenticated();
     const token = jwt.token;
     const classes = useStyles();
+    const location = useLocation();
 
     const [orderId, setOrderId] = useState('');
     const [customerName, setCustomerName] = useState('');
@@ -126,7 +128,7 @@ export default function MyForm() {
     }
 
     if(!jwt) {
-        return <Navigate to="/dangnhap" />;
+        return <Navigate to="/dangnhap" state={{prevUrl: location.pathname}}/>;
     }
     else{
         return (

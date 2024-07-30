@@ -1,7 +1,3 @@
-// Next update:
-// - Delete multiple applications by year
-// - Choose multiple applications then delete
-
 import logo from '../assets/Tuổi_Trẻ_Logo.svg.png'
 
 const Home = () => {

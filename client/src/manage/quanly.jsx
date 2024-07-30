@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {listAll, searchName, searchNameCaseInsensitive} from './api-quanly';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -58,6 +58,7 @@ export default function QuanLy() {
     const [deletedItems, setDeletedItems] = useState([]);
     const [openNotification, setOpenNotification] = useState(false);
     const jwt = auth.isAuthenticated();
+    const location = useLocation();
 
     useEffect(() => {
         const checkServerStatus = async () => {
@@ -182,9 +183,6 @@ export default function QuanLy() {
                     });
                 setDeletedItems([]);
                 handleCloseNotification();
-                await setTimeout(() => {
-                    alert('Xóa thành công');
-                }, 500);
             }
         });
         
@@ -192,7 +190,7 @@ export default function QuanLy() {
 
     const handleDeleteMultiple = () => {
         if(!jwt){
-            navigate('/dangnhap');
+            navigate('/dangnhap' , {state: {prevUrl: location.pathname}});
         }
         else {
             setOpenNotification(true);

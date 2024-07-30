@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { listById } from "./api-quanly";
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import Fraction from 'fraction.js';
 import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
 import { removeById } from './api-quanly';
 import auth from '../auth/auth-helper';
+
 
 export default function BieuMauOne() {
     const [values, setValues] = useState([]);
@@ -12,6 +13,7 @@ export default function BieuMauOne() {
     const { id } = useParams();
     const jwt = auth.isAuthenticated();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const formattedDates = values.publishDates?.map((date, index, array) => {
         const [year, month, day] = date.split('T')[0].split('-');
@@ -67,7 +69,7 @@ export default function BieuMauOne() {
 
 
     if (!jwt){
-        return <Navigate to="/dangnhap" />;
+        return <Navigate to="/dangnhap" state={{prevUrl: location.pathname}}/>;
     }
     else {
         return (

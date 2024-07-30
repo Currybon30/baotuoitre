@@ -76,10 +76,9 @@ export default function Signin() {
         setValues({ ...values, [name]: event.target.value });
     }
 
-    const { from } = location.state || { from: { pathname: '/' } };
     const { redirectToReferrer } = values;
     if (redirectToReferrer) {
-        return <Navigate to={from} />;
+        return <Navigate to={location?.state?.prevUrl || '/'} />;
     }
 
     return (
