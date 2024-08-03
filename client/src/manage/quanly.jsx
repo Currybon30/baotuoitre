@@ -87,6 +87,12 @@ export default function QuanLy() {
             })
     }, [])
 
+    if (multiSelect) {
+        if (!jwt) {
+            navigate('/dangnhap', { state: { prevUrl: location.pathname } });
+        }
+    }
+
 
     const handleCheckboxClick = (e, itemId) => {
         if(e.target.checked){
