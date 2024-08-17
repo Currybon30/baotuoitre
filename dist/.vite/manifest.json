@@ -1,0 +1,18 @@
+{
+  "src/assets/Tuổi_Trẻ_Logo.svg.png": {
+    "file": "assets/Tuổi_Trẻ_Logo.svg-Lz3lrAvU.png",
+    "src": "src/assets/Tuổi_Trẻ_Logo.svg.png"
+  },
+  "src/index.jsx": {
+    "file": "assets/index-yY4kP_3X.js",
+    "name": "index",
+    "src": "src/index.jsx",
+    "isEntry": true,
+    "css": [
+      "assets/index-Ch1k3AmM.css"
+    ],
+    "assets": [
+      "assets/Tuổi_Trẻ_Logo.svg-Lz3lrAvU.png"
+    ]
+  }
+}
