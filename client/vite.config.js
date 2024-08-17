@@ -10,7 +10,7 @@ export default defineConfig({
       jsxRuntime: 'classic'
     })
   ],
-  base: '/baotuoitre/', // Base path for the build
+  base: '/baotuoitre/client', // Base path for the build
   server: {
     port: Number(PORT), // Port where the Vite app runs
     proxy: {
