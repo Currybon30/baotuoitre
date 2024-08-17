@@ -1,3 +1,4 @@
+import React from "react";
 import logo from '../assets/Tuổi_Trẻ_Logo.svg.png'
 
 const Home = () => {

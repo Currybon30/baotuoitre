@@ -1,28 +1,31 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-const { PORT = 8000 } = process.env;
+const { PORT = 3000 } = process.env;
 
 export default defineConfig({
   plugins: [react({
-      jsxRuntime: 'classic' // Add this line
-    }
-  )],
+      jsxRuntime: 'classic'
+    })
+  ],
+  base: '/baotuoitre/', // Base path for the build
   server: {
+    port: Number(PORT), // Port where the Vite app runs
     proxy: {
       '/api': {
-        target: `https://thuytrang-tuoitre.onrender.com/:${PORT}`,
+        target: 'https://thuytrang-tuoitre.onrender.com',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''), // Adjust path if necessary
       },
     },
   },
   build: {
     manifest: true,
     rollupOptions: {
-      input: "./src/index.js",
+      input: './src/index.jsx',
     },
+    outDir: '../public', // Output directory for the build
   },
 });

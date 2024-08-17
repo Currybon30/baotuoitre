@@ -1,3 +1,4 @@
+import React from "react";
 export const NavItems = [
     {
         id: 0,
