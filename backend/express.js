@@ -13,12 +13,21 @@ import historyRoutes from './routes/history.routes.js';
 const app = express();
 const CURRENT_WORKING_DIR = process.cwd();
 
+const corsOptions = { // Only allow requests from these origins
+    origin: [
+        "http://localhost:3000",
+        "https://currybon30.github.io/"
+    ],
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', qcRoutes);
