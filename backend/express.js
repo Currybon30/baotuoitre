@@ -16,7 +16,7 @@ const CURRENT_WORKING_DIR = process.cwd();
 const corsOptions = { // Only allow requests from these origins
     origin: [
         "http://localhost:3000",
-        "https://currybon30.github.io/"
+        "https://currybon30.github.io"
     ],
     credentials: true,
     optionsSuccessStatus: 200
