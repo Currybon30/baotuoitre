@@ -36,6 +36,7 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
+        working-directory: ./client
         run: npm ci
       - name: Build
         run: npm run build
