@@ -2,9 +2,9 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the default branch (usually 'main' or 'master')
   push:
-    branches: ['client']
+    branches: ['main']  # Change this to your default branch name if different
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,8 +37,10 @@ jobs:
           cache: 'npm'
           cache-dependency-path: ./client/package-lock.json
       - name: Install dependencies
+        working-directory: ./client
         run: npm ci
       - name: Build
+        working-directory: ./client
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
