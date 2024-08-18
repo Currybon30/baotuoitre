@@ -17,15 +17,10 @@ export default defineConfig({
       '/api': {
         target: 'https://thuytrang-tuoitre.onrender.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''), // Adjust path if necessary
       },
     },
   },
   build: {
-    manifest: true,
-    rollupOptions: {
-      input: './src/index.jsx',
-    },
-    outDir: '../dist', // Output directory for the build
+    outDir: '../dist', 
   },
 });
