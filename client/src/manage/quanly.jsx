@@ -54,7 +54,6 @@ export default function QuanLy() {
     const [data, setData] = useState([]);
     const [caseInsensitive, setCaseInsensitive] = useState(false);
     const [, setError] = useState(null);
-    const [serverCheck, setServerCheck] = useState(false);
     const [multiSelect, setMultiSelect] = useState(false);
     const [deletedItems, setDeletedItems] = useState([]);
     const [openNotification, setOpenNotification] = useState(false);
@@ -62,23 +61,6 @@ export default function QuanLy() {
     const location = useLocation();
 
     useEffect(() => {
-        const checkServerStatus = async () => {
-            try {
-                await fetch('https://thuytrang-tuoitre-server.onrender.com/', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                })
-                setServerCheck(true)
-            }
-            catch (err) {
-                setServerCheck(false)
-            }  
-        }
-        
-        checkServerStatus()
         listAll()
             .then(data => {
                 setData(data)
@@ -205,13 +187,6 @@ export default function QuanLy() {
     }
     
 
-    if(!serverCheck){
-        return (
-            <div className={classes.root}>
-                <p>Server đang được khởi động</p>
-            </div>
-        )
-    }
     if(data.length === 0){
         return (
             <div className={classes.root}>
