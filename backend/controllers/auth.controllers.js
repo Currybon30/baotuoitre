@@ -18,10 +18,10 @@ const signin = async (req, res) => {
             return res.status(401).json({ error: "username hoặc password không đúng" });
 
         // Generate token
-        const token = jwt.sign({ _id: user._id }, config.jwtSecret, { expiresIn: '3m' });
+        const token = jwt.sign({ _id: user._id }, config.jwtSecret, { expiresIn: '3h' });
 
         // Set token in cookie
-        res.cookie("t", token, { expire: new Date(Date.now() + 3 * 60 * 1000) });
+        res.cookie("t", token, { expire: new Date(Date.now() + 3 * 60 * 60 * 1000) });
 
         // Send token and user details in response
         return res.json({
