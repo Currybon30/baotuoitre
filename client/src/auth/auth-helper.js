@@ -18,20 +18,18 @@ const auth = {
         if (typeof window !== "undefined")
             sessionStorage.removeItem('jwt');
         cb();
-        signout().then(() => {
-            document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        });
+        signout();
     },
-    updateUser(user, cb) {
-        if (typeof window !== "undefined") {
-            if (sessionStorage.getItem('jwt')) {
-                let auth = JSON.parse(sessionStorage.getItem('jwt'));
-                auth.user = user;
-                sessionStorage.setItem('jwt', JSON.stringify(auth));
-                cb();
-            }
-        }
-    },
+    // updateUser(user, cb) {
+    //     if (typeof window !== "undefined") {
+    //         if (sessionStorage.getItem('jwt')) {
+    //             let auth = JSON.parse(sessionStorage.getItem('jwt'));
+    //             auth.user = user;
+    //             sessionStorage.setItem('jwt', JSON.stringify(auth));
+    //             cb();
+    //         }
+    //     }
+    // },
     runLogoutTimer(timer) {
         setTimeout(() => {
             signout();
