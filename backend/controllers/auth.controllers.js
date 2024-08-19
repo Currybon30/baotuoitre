@@ -10,26 +10,25 @@ const signin = async (req, res) => {
         
         // Check if user exists
         if (!user)
-            return res.status(401).json({ error: "Username hoặc password không đúng" });
+            return res.status(401).json({ error: "username hoặc password không đúng" });
         
         // Check if password is correct
         const isPasswordValid = await user.authenticate(req.body.password);
         if (!isPasswordValid)
-            return res.status(401).json({ error: "Username hoặc password không đúng" });
+            return res.status(401).json({ error: "username hoặc password không đúng" });
 
         // Generate token
-        const token = jwt.sign({ _id: user._id }, config.jwtSecret, { expiresIn: '12h' });
+        const token = jwt.sign({ _id: user._id }, config.jwtSecret, { expiresIn: '3m' });
 
         // Set token in cookie
-        res.cookie("t", token, { expire: new Date(Date.now() + 12 * 60 * 60 * 1000) });
+        res.cookie("t", token, { expire: new Date(Date.now() + 3 * 60 * 1000) });
 
         // Send token and user details in response
         return res.json({
             token,
-            user: { _id: user._id, username: user.username }
+            user: { username: user.username }
         });
     } catch (err) {
-        console.error(err);
         return res.status(401).json({ error: "Lỗi! Không thể đăng nhập" });
     }
 }
