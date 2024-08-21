@@ -1,4 +1,4 @@
-##Statistics Management Website
+# Statistics Management Website
 Client: https://github.com/Currybon30/baotuoitre/tree/client </br>
 Server: https://github.com/Currybon30/baotuoitre/tree/server </br>
 Link to site: https://currybon30.github.io/baotuoitre/ </br> </br>
