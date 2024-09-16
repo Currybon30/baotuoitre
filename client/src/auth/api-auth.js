@@ -1,6 +1,7 @@
+const server_url = import.meta.env.VITE_SERVER_URL;
 const signin = async (user) => {
     try {
-        const response = await fetch('/auth/signin', {
+        const response = await fetch(server_url + '/auth/signin', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -18,7 +19,7 @@ const signin = async (user) => {
 
 const signout = async () => {
     try {
-        const response = await fetch('/auth/signout', {
+        const response = await fetch(server_url + '/auth/signout', {
             method: 'GET'
         });
         return await response.json();

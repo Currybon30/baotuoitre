@@ -1,6 +1,7 @@
+const server_url = import.meta.env.VITE_SERVER_URL;
 const exportByMonth = async (year, month, token) => {
     try {
-        const response = await fetch('/api/export/exportByMonth/' + year + '/' + month, {
+        const response = await fetch(server_url +'/api/export/exportByMonth/' + year + '/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,7 +17,7 @@ const exportByMonth = async (year, month, token) => {
 
 const exportByPage = async (year, month, token) => {
     try {
-        const response = await fetch('/api/export/exportByPage/' + year + '/' + month, {
+        const response = await fetch(server_url +'/api/export/exportByPage/' + year + '/' + month, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ const exportByPage = async (year, month, token) => {
 
 const exportByDay = async (year, month, day, token) => {
     try {
-        const response = await fetch('/api/export/exportByDay/' + year + '/' + month + '/' + day, {
+        const response = await fetch(server_url +'/api/export/exportByDay/' + year + '/' + month + '/' + day, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
+const server_url = import.meta.env.VITE_SERVER_URL;
 export const createHistory = async (bieumau, token) => {
     try {
-        let response = await fetch('/api/history', {
+        let response = await fetch(server_url +'/api/history', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

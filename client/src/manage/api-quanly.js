@@ -1,6 +1,7 @@
+const server_url = import.meta.env.VITE_SERVER_URL;
 const listAll = async () => {
     try {
-        let response = await fetch('/api/qc/presses', {
+        let response = await fetch(server_url +'/api/qc/presses', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -16,7 +17,7 @@ const listAll = async () => {
 
 const searchName = async (name) => {
     try {
-        let response = await fetch('/api/qc/presses/customer?name=' + name, {
+        let response = await fetch(server_url +'/api/qc/presses/customer?name=' + name, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -32,7 +33,7 @@ const searchName = async (name) => {
 
 const searchNameCaseInsensitive = async (name) => {
     try {
-        let response = await fetch('/api/qc/presses/customer/case-insensitive?name=' + name, {
+        let response = await fetch(server_url +'/api/qc/presses/customer/case-insensitive?name=' + name, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -48,7 +49,7 @@ const searchNameCaseInsensitive = async (name) => {
 
 const listById = async (params, credentials) => {
     try {
-        let response = await fetch('/api/qc/presses/' + params, {
+        let response = await fetch(server_url +'/api/qc/presses/' + params, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -65,7 +66,7 @@ const listById = async (params, credentials) => {
 
 const removeById = async (params, credentials) => {
     try {
-        let response = await fetch('/api/qc/presses/' + params, {
+        let response = await fetch(server_url +'/api/qc/presses/' + params, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -82,7 +83,7 @@ const removeById = async (params, credentials) => {
 
 const updateById = async (params, data, credentials) => {
     try {
-        let response = await fetch('/api/qc/presses/' + params, {
+        let response = await fetch(server_url +'/api/qc/presses/' + params, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -100,7 +101,7 @@ const updateById = async (params, data, credentials) => {
 
 const deleteMultiItems = async (itemArray, credentials) => {
     try {
-        let res = await fetch('/api/qc/presses/delete-many', {
+        let res = await fetch(server_url +'/api/qc/presses/delete-many', {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
