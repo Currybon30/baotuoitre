@@ -15,7 +15,11 @@ export default defineConfig({
     port: Number(PORT), // Port where the Vite app runs
     proxy: {
       '/api': {
-        target: 'https://thuytrang-tuoitre.onrender.com',
+        target: 'https://thuytrang-tuoitre-server.onrender.com',
+        changeOrigin: true,
+      },
+      '/auth': {
+        target: 'https://thuytrang-tuoitre-server.onrender.com',
         changeOrigin: true,
       },
     },

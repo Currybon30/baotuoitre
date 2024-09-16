@@ -1,6 +1,6 @@
 const signin = async (user) => {
     try {
-        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/auth/signin', {
+        const response = await fetch('/auth/signin', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -18,7 +18,7 @@ const signin = async (user) => {
 
 const signout = async () => {
     try {
-        const response = await fetch('https://thuytrang-tuoitre-server.onrender.com/auth/signout', {
+        const response = await fetch('/auth/signout', {
             method: 'GET'
         });
         return await response.json();

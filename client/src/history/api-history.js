@@ -1,6 +1,6 @@
 export const createHistory = async (bieumau, token) => {
     try {
-        let response = await fetch('https://thuytrang-tuoitre-server.onrender.com/api/history', {
+        let response = await fetch('/api/history', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
