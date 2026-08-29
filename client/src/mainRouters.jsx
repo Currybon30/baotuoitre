@@ -38,7 +38,7 @@ export default function MainRouters() {
             <div>
                 <Menu />
                 <Routes>
-                    <Route exact path="/"  Component={Home}/>
+                    <Route path="/baotuoitre"  Component={Home}/>
                     <Route path="/taobieumau" Component={BieuMau} />
                     <Route path="/quanlybieumau" Component={QuanLy}  />
                     <Route path="/quanlybieumau/:id" Component={BieuMauOne} />
@@ -56,8 +56,7 @@ export default function MainRouters() {
                     <Route path="/dangnhap" Component={Signin} />
                 
                     {/* New route for redirection */}
-                    <Route path="/baotuoitre" element={<Navigate to="/" />} />
-                    <Route path="/signout" element={<Navigate to="/" />} />
+                    <Route path="/signout" element={<Navigate to="/baotuoitre" />} />
                 </Routes>
                 <Footer />  
             </div>
